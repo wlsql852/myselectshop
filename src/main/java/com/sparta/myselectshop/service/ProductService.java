@@ -4,6 +4,7 @@ import com.sparta.myselectshop.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.entity.Product;
+import com.sparta.myselectshop.entity.User;
 import com.sparta.myselectshop.naver.dto.ItemDto;
 import com.sparta.myselectshop.repository.ProductReqository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class ProductService {
 
     public static final int MIN_MY_PRICE = 100;
 
-    public ProductResponseDto createProduct(ProductRequestDto requestDto) {
-        Product product = productReqository.save(new Product(requestDto));
+    public ProductResponseDto createProduct(ProductRequestDto requestDto, User user) {
+        Product product = productReqository.save(new Product(requestDto, user));
         return new ProductResponseDto(product);
 
     }
@@ -37,8 +38,8 @@ public class ProductService {
 
     }
 
-    public List<ProductResponseDto> getProducts() {
-        List<Product> productList = productReqository.findAll();
+    public List<ProductResponseDto> getProducts(User user) {
+        List<Product> productList = productReqository.findAllByUser(user);
         List<ProductResponseDto> responseDtoList = new ArrayList<>();
         for (Product product : productList) {
             responseDtoList.add(new ProductResponseDto(product));
@@ -50,5 +51,14 @@ public class ProductService {
     public void updateBySearch(Long id, ItemDto itemDto) {
         Product product = productReqository.findById(id).orElseThrow(()-> new NullPointerException("해당 상품은 존재하지 않습니다."));
         product.updateByItemDto(itemDto);
+    }
+
+    public List<ProductResponseDto> getAllproducts() {
+        List<Product> productList = productReqository.findAll();
+        List<ProductResponseDto> responseDtoList = new ArrayList<>();
+        for (Product product : productList) {
+            responseDtoList.add(new ProductResponseDto(product));
+        }
+        return responseDtoList;
     }
 }
