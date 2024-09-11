@@ -26,7 +26,7 @@ public class Folder {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "folder")
     private List<ProductFolder> productFolderList = new ArrayList<>();
 
     public Folder(String name, User user) {
