@@ -3,7 +3,7 @@ package com.sparta.myselectshop.scheduler;
 import com.sparta.myselectshop.entity.Product;
 import com.sparta.myselectshop.naver.dto.ItemDto;
 import com.sparta.myselectshop.naver.service.NaverApiService;
-import com.sparta.myselectshop.repository.ProductReqository;
+import com.sparta.myselectshop.repository.ProductRepository;
 import com.sparta.myselectshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class Scheduler {
 
     private final NaverApiService naverApiService;
     private final ProductService productService;
-    private final ProductReqository productRepository;
+    private final ProductRepository productRepository;
 
 
     // 초, 분, 시, 일, 월, 주 순서
